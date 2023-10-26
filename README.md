@@ -1,38 +1,74 @@
-# Cryptocurrency Icons
+# Vue Cryptocurrency Icons
 
-[This project](http://cryptoicons.co) contains over 7,500 icons – almost 500 crypto currencies, in 4 styles and a range of sizes. Completely free. All we ask is that you don’t claim them as your own, and share this resource with others.
+Inheriting image resources from [cryptocurrency-icons](https://github.com/spothq/cryptocurrency-icons) and writing a version that can be used in Vue 3.
 
-We also have some fiat currencies: `USD`, `GBP`, `EUR`, `JPY`, `CNY`, `RUB`. *(We don't intend to add more)*
+The biggest difference is that the original cryptocurrency-icons need to import images directly from node_module, for example:
 
-Images are in the PNG format (transparent) in `32×32`, `32×32 (@2x)`, and `128×128` variants, along with SVG versions.
+`import avax from './node_modules/cryptocurrency-icons/svg/color/avax.svg'`.
 
-There's also a [`generic` icon](https://github.com/spothq/cryptocurrency-icons/blob/master/svg/color/generic.svg) that can be used for cryptocurrencies missing an icon here.
-
-If there is an altcoin you’re looking for that hasn’t been included, please [create a new issue](https://github.com/spothq/cryptocurrency-icons/issues/new?assignees=&labels=coin+request&template=add-currency.md&title=Add+Currency+%28Symbol%29).<br><sub>(We don't accept pull request contributions for new or updated icons at this time. Open an issue and we'll do the icon for you.)</sub>
-
+But in tools like Vite, it is not easy to import images directly from node_module. It requires some other configurations.
 
 ## Install 🚀
 
+```bash
+$ npm install vue-cryptocurrency-icons
 ```
-$ npm install cryptocurrency-icons
+
+Vue Global on `main.js`
+
+```js
+import VueCryptocurrencyIcons from 'vue-cryptocurrency-icons'
+
+app.use(VueCryptocurrencyIcons)
 ```
 
-You can then import the icons from `./node_modules/cryptocurrency-icons`, for example `./node_modules/cryptocurrency-icons/svg/color/kmd.svg`.
+Component
 
-There's also a `manifest.json` file included in the package with a list of the currency symbol, the name of the icons and the associated colors.
+```js
+<VueCryptocurrencyIcons name="Avax" />
+```
+
+## Props
+
+Prop | Options | Default | Description
+---- | ---------| ------------ | -----
+name | btc, eth, sol, usdc...etc | null | Please refer to the list of currency names in [manifest.json](./manifest.json).
+type | svg, png | svg | Image Type
+size | 32, 2x, 128, number (when type is png) | default is 32 when type is svg | Ignore when using svg. Please customize width and height with style.
+theme | color | black,color, white | icon color
 
 
-## Special Thanks 👏
+## Methods
 
-Thanks to [Christopher Downer](https://github.com/cjdowner) for starting this project and all our wonderful [contributors](https://github.com/spothq/cryptocurrency-icons/graphs/contributors).
+### icons
+取得 icons list
 
+```js
+import { icons } from 'vue-cryptocurrency-icons'
+console.log(icons)
 
-## Used By
+/**
+ * [
+ * 	{symbol: '$PAC', name: 'PACcoin', color: '#f5eb16'},
+ *  ...
+ * ]
+*/
+```
 
-- [vue-cryptoicon](https://github.com/man15h/vue-cryptoicon) - Cryptocurrency icons for Vue apps
-- [svelte-cryptoicon](https://github.com/alepop/svelte-cryptoicon) - Cryptocurrency icons for Svelte apps
-- [Crypto Tools](http://bunchoftext.com/apps/crypto-calculator) - Cryptocurrency icons for Crypto Tools macOS app
-- [Cryptocurrency Ticker](https://cryptocurrencyticker.xyz) - Cryptocurrency ticker for Windows and Linux Mint - Cinnamon
-- [Spot](http://spot-bitcoin.com) - Cryptocurrency wallet
+### getIcon
+Manually get the icon's base64
 
-<sub>We're always happy to see where, and how these icons are used. Feel free to share your creations with us, and we will put you in this list.</sub>
+```js
+import { getIcon } from 'vue-cryptocurrency-icons'
+getIcon({
+  name: 'btc',
+  type: 'svg',
+  size: '32',
+  theme: 'white',
+}).then((res) => {
+  console.log(res)
+})
+console.log(myIcon)
+// {default: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org….45c.975.243 4.118.696 3.61 2.733z'/%3e%3c/svg%3e"}
+```
+
