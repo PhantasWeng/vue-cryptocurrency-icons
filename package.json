@@ -1,6 +1,6 @@
 {
 	"name": "@phantasweng/vue-cryptocurrency-icons",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"main": "dist/index.esm.js",
 	"description": "cryptocurrency icon component for vue3",
 	"license": "CC0-1.0",

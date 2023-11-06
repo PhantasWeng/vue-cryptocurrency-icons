@@ -11,13 +11,13 @@ But in tools like Vite, it is not easy to import images directly from node_modul
 ## Install 🚀
 
 ```bash
-$ npm install vue-cryptocurrency-icons
+$ npm install @phantasweng/vue-cryptocurrency-icons
 ```
 
 Vue Global on `main.js`
 
 ```js
-import VueCryptocurrencyIcons from 'vue-cryptocurrency-icons'
+import VueCryptocurrencyIcons from '@phantasweng/vue-cryptocurrency-icons'
 
 app.use(VueCryptocurrencyIcons)
 ```
@@ -44,7 +44,7 @@ theme | color | black,color, white | icon color
 取得 icons list
 
 ```js
-import { icons } from 'vue-cryptocurrency-icons'
+import { icons } from '@phantasweng/vue-cryptocurrency-icons'
 console.log(icons)
 
 /**
@@ -59,7 +59,7 @@ console.log(icons)
 Manually get the icon's base64
 
 ```js
-import { getIcon } from 'vue-cryptocurrency-icons'
+import { getIcon } from '@phantasweng/vue-cryptocurrency-icons'
 getIcon({
   name: 'btc',
   type: 'svg',
